@@ -1,4 +1,5 @@
-➡️ Projects for practise 
-    - investment-calculator : based on the required input by the user , user can get the list of net profit after each year
+➡️ Projects
+
+    - The investment calculator allows the user to input their required information and receive a list of net profits for each year.
     
-    - user-age-logger : to log the age of user nd show them as list
+    - Age Logger: This tool logs users' ages and displays them as a list.
