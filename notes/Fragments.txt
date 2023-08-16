@@ -1,0 +1,18 @@
+limitation of JSX code ➡️
+
+- it cannot return 2 or more element at a time:
+    e.g:
+        return (
+            React.createElement("h1" , {} , "content for h1")
+            React.createElement("h1" , {} , "content for h1")
+        )
+    
+    sollution for the above problem is ➡️
+
+    - wrape with <div></div> but we get un-necessary div to DOM  or array [] but need to pass the keys here 
+    - Wrapper compoennt : 
+        function Wrapper(props){
+            return props.children;
+        }
+    - <></> : wrape the element inside the bracket 
+    - React.Fragements : which is sort of above functionality but as a component 

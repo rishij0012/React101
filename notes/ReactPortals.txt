@@ -1,0 +1,2 @@
+- we have to tell where we need to add the component nd which compoent we need to add 
+- it will create a better dom which wont be effecting the styles in current dom
