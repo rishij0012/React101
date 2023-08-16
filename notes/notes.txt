@@ -1,0 +1,77 @@
+.......................... IMPORT ..................
+
+// here the import use capital starting charater so that react find out its a custom component 
+// if small then it wont work
+import ExpenseItem from './component/ExpenseItem';
+
+------------------------------- COMPONENT ------------------------
+
+return <h1>Here i am the expense item component</h1> // return a single element not 2 or more 
+
+--------------------------------- COMPOSITION ----------------------
+- def : building the UI using the small-small components
+- here we pass the component inside the opening nd closing tag of component
+
+-------------------------------- JSX works ---------------------- 
+- react.createElement( "dev"  , {} <- [ here we have the props ] , ..... [ all elements in the tree ])
+
+-------------------------------- STATE ---------------------------
+
+- react sirf ek baar render karenga JSX code agar usko btana hai kch change hua hai then we need the state change 
+  e.g agar koi event hua hai or change krri hai value then react usko detect krre uske liye state use hoga
+    <Cards className="expense-item">
+      <ExpenseDate expenseDate={expenseDate}></ExpenseDate>
+      <div className="expense-item__description">
+        <h2>{expenseDescription}</h2>
+        <div className="expense-item__price">${expensePrice}</div>
+        <button onClick={() => { console.log("changeClicked"); title="changes"; }}>{title}</button>
+      </div>
+    </Cards>
+
+    isme title change nai hoga even if we click the button 
+
+--------------------- useState ---------------------------------------
+- get register for a component : therefore 2 component have 2 d/f title variable mem or state variable
+- const [title , setTitle] = useState("initialState") 
+    - setTitle : schedule the change in title value i.e async in nature 
+
+imp : for state update i.e if we have to update a state which depends on the previous state then : 
+  dont use : 
+    setUserInput({
+            ...userInput,
+            enteredTitle: event.target.value,
+        });
+
+  instead-use : 
+    setUserInput((preState) => {
+      // gurantee the pre-state of the DOM
+      return {
+        ...preState,
+        enteredTitle: event.target.value,
+      };
+    });
+
+
+
+- 2-way-binding : here we not only change the value of variable of the state but also assign the value to the 
+                  input use value property 
+
+
+- array-of-element need a unique key to identify the change in the dom by the react 
+
+- if we need to return 2 JSX element then we can use wrapper component : 
+  i.e : 
+    const wrapper = (props) => {
+      return props.children
+    }
+    here we dont require any div for the return instead hm isse use krenge to wrap the 2 component/ele 
+    to make a single ele 
+
+                OR 
+    <> </>
+                OR 
+    <fragment></fragment> : under the hood works the same 
+
+
+
+
