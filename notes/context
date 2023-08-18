@@ -1,0 +1,7 @@
+- manage the app wide state through component
+- e.g like authentication , theme 
+
+
+- limitation : 
+    - only used for low freq changes 
+    - not all places used context like button configuration ... on lcick property in the app

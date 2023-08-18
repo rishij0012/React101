@@ -19,3 +19,12 @@ e.g forms validation of email nd password :
                 [BUG]
                 return enteredEmail.includes("@") // yaha pe current state lene mai issue aega for complex apps
             })
+
+-   But you should avoid this code:
+
+    useEffect(() => {
+    // code that only uses someProperty ...
+    }, [someObject]);
+    Why?
+
+    Because now the effect function would re-run whenever ANY property of someObject changes - not just the one property (someProperty in the above example) our effect might depend on.
