@@ -12,6 +12,12 @@ const CartItem = (props) => {
     };
   }
 
+  function addItemHandler(id) {
+    return () => {
+      cartCtx.addItem({...props,quantity: 1});
+    };
+  }
+
   return (
     <li className={classes["cart-item"]}>
       <div>
@@ -23,7 +29,7 @@ const CartItem = (props) => {
       </div>
       <div className={classes.actions}>
         <button onClick={removeItemHandler(props.id)}>−</button>
-        <button onClick={props.onAdd}>+</button>
+        <button onClick={addItemHandler(props.id)}>+</button>
       </div>
     </li>
   );

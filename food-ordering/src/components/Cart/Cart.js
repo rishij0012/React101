@@ -19,7 +19,11 @@ function Cart(props) {
   });
 
   return (
-    <Modal onToggleCart={props.onToggleCart}>
+    // modal har baar run hoga even thoug we have not changed props
+    // we need to tell react to only run Modal when props change
+    // Modal mai change hoga
+    // react.memo 🤜 check karega props mai change toh nai hora .... props store karenga 
+    <Modal onToggleCart={props.onToggleCart}> 
       {cartCtx.items.length === 0 ? (
         <center>
           <h2>No item in Cart</h2>

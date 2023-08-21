@@ -32,16 +32,10 @@ const cartReducer = (preState, action) => {
       }
 
     case "remove":
-      console.log(
-        "🚀 ~ file: cartContext.js:36 ~ cartReducer ~ preState.items:",
-        preState.items
-      );
+      
       const filterItem = preState.items.filter((x) => x.id === action.id)[0];
       let updatedItem = preState.items;
-      console.log(
-        "🚀 ~ file: cartContext.js:38 ~ cartReducer ~ filterItem.quantity:",
-        filterItem
-      );
+      
       if (filterItem && filterItem.quantity === 1) {
         console.log("🚀 ~ file: cartContext.js:46 ~ cartReducer ~ filterItem.quantity === 1:", filterItem.quantity === 1)
         updatedItem = preState.items.filter((x) => x.id !== action.id);
