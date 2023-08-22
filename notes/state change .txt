@@ -1,0 +1,7 @@
+when state change happens inside a block or function then it happens inside a same bactch by the react 
+e.g
+// both will get scheduled after the block of code is executed inside a same batch
+    useEffect(() => {
+        setEmpty(true);
+        setValid(true);
+    })
