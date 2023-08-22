@@ -1,0 +1,4 @@
+- we cannot create a hook inside a function so we have to build a component aka CUSTOM HOOKS
+- file : use-counter
+- every component recieve its own state of custom hooks
+- example 🤜 [here](../counter%20example%20for%20custom%20hooks/) 
