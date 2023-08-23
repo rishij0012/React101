@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react";
 
-const useFetch = function (requestConfig, transformationLogic) {
+const useFetch = function () {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const sendReq = useCallback(async () => {
+  const sendReq = useCallback(async (requestConfig, transformationLogic) => {
     console.log("🚀 ~ file: use-fetch.js:33 ~ sendReq ~ sendReq:");
 
     setIsLoading(true);
@@ -31,7 +31,7 @@ const useFetch = function (requestConfig, transformationLogic) {
       setError(err.message || "Something went wrong!");
     }
     setIsLoading(false);
-  }, [requestConfig, transformationLogic]);
+  }, []);
 
   return { sendReq, isLoading, error };
 };

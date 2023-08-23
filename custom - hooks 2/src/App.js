@@ -43,27 +43,20 @@ function App() {
   //   }
   //   setIsLoading(false);
   // };
-  const transformationLogic = useCallback((taskList) => {
-    console.log(
-      "🚀 ~ file: App.js:47 ~ transformationLogic ~ transformationLogic:"
-    );
-    const loadedTasks = [];
 
-    for (const taskKey in taskList) {
-      loadedTasks.push({ id: taskKey, text: taskList[taskKey].text });
-    }
-
-    setTasks(loadedTasks);
-  }, []);
-
-  const {
-    error,
-    isLoading,
-    sendReq: fetchTasks,
-  } = useFetch(requestConfig, transformationLogic);
+  const { error, isLoading, sendReq: fetchTasks } = useFetch();
 
   useEffect(() => {
-    fetchTasks();
+    const transformationLogic = (taskList) => {
+      const loadedTasks = [];
+
+      for (const taskKey in taskList) {
+        loadedTasks.push({ id: taskKey, text: taskList[taskKey].text });
+      }
+
+      setTasks(loadedTasks);
+    };
+    fetchTasks(requestConfig, transformationLogic);
   }, [fetchTasks]); // here we need to add the fetch task as dependency as react dont know abt the fetch task ... setTask he knows
   // if i add it then -> 1. run : get the task ... setTask get trigger ... re-render APP component
   // here we have fetch task again
