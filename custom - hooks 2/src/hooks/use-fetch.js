@@ -15,8 +15,9 @@ const useFetch = function () {
         requestConfig.url,
         {
           method: requestConfig.method || "GET",
-          body: JSON.stringify(requestConfig.data) || null,
+          body: JSON.stringify(requestConfig.body) || null,
           headers: requestConfig.headers || {},
+          
         }
       );
 
@@ -26,7 +27,7 @@ const useFetch = function () {
 
       const data = await response.json();
 
-      transformationLogic(data);
+      transformationLogic({...data , ...requestConfig.body});
     } catch (err) {
       setError(err.message || "Something went wrong!");
     }
