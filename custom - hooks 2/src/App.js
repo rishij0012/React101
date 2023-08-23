@@ -1,43 +1,75 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from "react";
 
-import Tasks from './components/Tasks/Tasks';
-import NewTask from './components/NewTask/NewTask';
+import Tasks from "./components/Tasks/Tasks";
+import NewTask from "./components/NewTask/NewTask";
+import useFetch from "./hooks/use-fetch";
+
+const requestConfig = {
+  url: "https://test-e3fd5-default-rtdb.firebaseio.com/tasks.json",
+};
+
+console.log("check123123");
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  console.log("🚀 ~ file: App.js:12 ~ App ~ App:");
+
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState(null);
   const [tasks, setTasks] = useState([]);
 
-  const fetchTasks = async (taskText) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(
-        'https://react-http-6b4a6.firebaseio.com/tasks.json'
-      );
+  // const fetchTasks = async (taskText) => {
+  //   setIsLoading(true);
+  //   setError(null);
+  //   try {
+  //     const response = await fetch(
+  //       'https://test-e3fd5-default-rtdb.firebaseio.com/tasks.json'
+  //     );
 
-      if (!response.ok) {
-        throw new Error('Request failed!');
-      }
+  //     if (!response.ok) {
+  //       throw new Error('Request failed!');
+  //     }
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      const loadedTasks = [];
+  //     const loadedTasks = [];
 
-      for (const taskKey in data) {
-        loadedTasks.push({ id: taskKey, text: data[taskKey].text });
-      }
+  //     for (const taskKey in data) {
+  //       loadedTasks.push({ id: taskKey, text: data[taskKey].text });
+  //     }
 
-      setTasks(loadedTasks);
-    } catch (err) {
-      setError(err.message || 'Something went wrong!');
+  //     setTasks(loadedTasks);
+  //   } catch (err) {
+  //     setError(err.message || 'Something went wrong!');
+  //   }
+  //   setIsLoading(false);
+  // };
+  const transformationLogic = useCallback((taskList) => {
+    console.log(
+      "🚀 ~ file: App.js:47 ~ transformationLogic ~ transformationLogic:"
+    );
+    const loadedTasks = [];
+
+    for (const taskKey in taskList) {
+      loadedTasks.push({ id: taskKey, text: taskList[taskKey].text });
     }
-    setIsLoading(false);
-  };
+
+    setTasks(loadedTasks);
+  }, []);
+
+  const {
+    error,
+    isLoading,
+    sendReq: fetchTasks,
+  } = useFetch(requestConfig, transformationLogic);
 
   useEffect(() => {
     fetchTasks();
-  }, []);
+  }, [fetchTasks]); // here we need to add the fetch task as dependency as react dont know abt the fetch task ... setTask he knows
+  // if i add it then -> 1. run : get the task ... setTask get trigger ... re-render APP component
+  // here we have fetch task again
+  //         IMP
+  // here we have seen that fetch from 1st state != fetch from second state
+  // if we add in the dependency then re-render happens
 
   const taskAddHandler = (task) => {
     setTasks((prevTasks) => prevTasks.concat(task));
