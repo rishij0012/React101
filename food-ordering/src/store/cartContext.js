@@ -1,5 +1,7 @@
 import { createContext, useReducer } from "react";
 
+import { constants } from "../utils/constant";
+
 const CartContext = createContext({
   items: [],
   addItem: (item) => {},
@@ -8,8 +10,16 @@ const CartContext = createContext({
   emptyCart: () => {},
 });
 
+// we can update the cart based on the user id in the db
+// const updateCartItem = async (data) => {
+//     const resp = fetch(constants.backendUrl,{
+//       body: JSON.stringify(data),
+//       method: "POST",
+//     })
+// }
+
 const defaultCart = { items: [], totalItem: 0 };
-const cartReducer = (preState, action) => {
+const cartReducer = async (preState, action) => {
   switch (action.type) {
     case "insert":
       const sameItemInCart = preState.items.filter(
