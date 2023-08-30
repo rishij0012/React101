@@ -5,6 +5,7 @@ const CartContext = createContext({
   addItem: (item) => {},
   removeItem: (id) => {},
   totalItem: 0, // 2 item but 1st item added 2 time ... 3 totalItems
+  emptyCart: () => {},
 });
 
 const defaultCart = { items: [], totalItem: 0 };
@@ -32,12 +33,14 @@ const cartReducer = (preState, action) => {
       }
 
     case "remove":
-      
       const filterItem = preState.items.filter((x) => x.id === action.id)[0];
       let updatedItem = preState.items;
-      
+
       if (filterItem && filterItem.quantity === 1) {
-        console.log("🚀 ~ file: cartContext.js:46 ~ cartReducer ~ filterItem.quantity === 1:", filterItem.quantity === 1)
+        console.log(
+          "🚀 ~ file: cartContext.js:46 ~ cartReducer ~ filterItem.quantity === 1:",
+          filterItem.quantity === 1
+        );
         updatedItem = preState.items.filter((x) => x.id !== action.id);
         return {
           items: updatedItem,
@@ -49,6 +52,13 @@ const cartReducer = (preState, action) => {
         items: updatedItem,
         totalItem: preState.totalItem - 1,
       };
+
+    case "emptyCart":
+      return {
+        items: [],
+        totalItem: 0,
+      };
+
     default:
       break;
   }
@@ -66,11 +76,16 @@ export const CartProvider = (props) => {
     dispatchCartAction({ type: "remove", id });
   };
 
+  const emptyCartHandler = () => {
+    dispatchCartAction({ type: "emptyCart" });
+  };
+
   const initCartContext = {
     items: cartState.items,
     totalItem: cartState.totalItem,
     addItem: addItemHandler,
     removeItem: removeItemHandler,
+    emptyCart: emptyCartHandler,
   };
 
   return (
